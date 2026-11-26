@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜数字小游戏</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif}
+        body{background-color:#f3f4f6;color:#333}
+        nav{background:#111827;padding:1.2rem;text-align:center}
+        nav a{color:#e5e7eb;margin:0 18px;text-decoration:none;font-size:17px;transition:0.2s}
+        nav a:hover{color:#3b82f6}
+        main{max-width:600px;margin:48px auto;padding:0 20px}
+        .card{background:#fff;padding:32px;border-radius:14px;box-shadow:0 2px 12px #00000010;text-align:center}
+        h1{color:#111827;margin-bottom:16px}
+        p{line-height:1.8;color:#4b5563;margin:10px 0}
+        input{padding:10px;width:160px;font-size:16px;border:1px solid #ccc;border-radius:8px;margin:8px}
+        button{padding:10px 20px;background:#3b82f6;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;margin:4px}
+        button:hover{background:#2563eb}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href=" ">首页</a >
+        <a href="about.html">项目介绍</a >
+        <a href="lab.html">实验记录</a >
+        <a href="report.html">总结报告</a >
+        <a href="game.html">小游戏</a >
+    </nav>
+    <main>
+        <div class="card">
+            <h1>猜数字游戏</h1>
+            <p>系统随机生成 1~100 的整数，你来猜！</p >
+            <p id="tip">请输入数字开始游戏</p >
+            <input type="number" id="numInput" placeholder="输入数字">
+            <br>
+            <button onclick="guess()">提交猜测</button>
+            <button onclick="resetGame()">重新开始</button>
+            <p>猜测次数：<span id="count">0</span></p >
+        </div>
+    </main>
+    <script>
+        let target = Math.floor(Math.random() * 100) + 1;
+        let count = 0;
+        const tipEl = document.getElementById("tip");
+        const countEl = document.getElementById("count");
+
+        function guess(){
+            const val = document.getElementById("numInput").value;
+            let n = parseInt(val);
+            if(isNaN(n)){
+                tipEl.innerText = "请输入有效的数字！";
+                return;
+            }
+            count++;
+            countEl.innerText = count;
+            if(n > target){
+                tipEl.innerText = "太大了！再小一点";
+            }else if(n < target){
+                tipEl.innerText = "太小了！再大一点";
+            }else{
+                tipEl.innerText = `🎉恭喜你猜对了！答案就是${target}`;
+            }
+        }
+        function resetGame(){
+            target = Math.floor(Math.random() * 100) + 1;
+            count = 0;
+            countEl.innerText = count;
+            tipEl.innerText = "请输入数字开始游戏";
+            document.getElementById("numInput").value = "";
+        }
+    </script>
+</body>
+</html>
